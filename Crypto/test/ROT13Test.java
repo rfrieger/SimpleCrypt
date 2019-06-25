@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -86,6 +87,20 @@ public class    ROT13Test {
         System.out.println(actual);
         // Then
         assertTrue(actual.equals(Q1));
+    }
+
+    @Test
+    public void writetoFileTest(){
+        ROT13 ciper = new ROT13();
+
+        String actual = ciper.readfile("sonnet18.txt");
+
+        ciper.encriptFile("sonnet18.txt", "sonnet18.enc");
+        ciper.encriptFile("sonnet18.enc", "sonnet18.txt");
+
+        String expected = ciper.readfile("sonnet18.txt");
+
+        Assert.assertEquals(expected,actual);
     }
 
 }

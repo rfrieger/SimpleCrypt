@@ -1,16 +1,12 @@
-import java.nio.charset.CharacterCodingException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-
-import static java.lang.Character.isLowerCase;
-import static java.lang.Character.isUpperCase;
-import static java.lang.Character.toLowerCase;
+import java.io.*;
+import java.util.Scanner;
 
 public class ROT13 {
     Character cs;
     Character cf;
     Integer amountToRotate;
+
+
 
     ROT13(Character cs, Character cf) {
         this.cs = cs;
@@ -56,6 +52,39 @@ public class ROT13 {
         final int offset = ((toMove % length) + length) % length;
         return s.substring( offset, length ) + s.substring( 0, offset );
     }
+
+
+    public String readfile (String fileInPath){
+        Scanner in = null;
+        try {
+            in = new Scanner(new FileReader(fileInPath));
+        } catch (Exception e){}
+        StringBuilder sb = new StringBuilder();
+        while(in.hasNext()) {
+            sb.append(in.next());
+        }
+        in.close();
+       return  sb.toString();
+    }
+
+
+    public void writefile (String fileOutPath , String encryptedSting){
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(fileOutPath), "utf-8"))) {
+            writer.write(encryptedSting);
+        } catch (Exception e) {
+
+        }
+    }
+
+
+        public void encriptFile(String fileIn, String fileOut) {
+         String toWrite = readfile(fileIn);
+         writefile(fileOut, encrypt(toWrite));
+        }
+
+
+
 
 
 }
